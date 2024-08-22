@@ -6,10 +6,17 @@ import Footer from "@/components/Footer";
 import { ModeToggle } from "@/components/ModeToggle";
 import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNav";
-import { navItems } from "@/data";
 import Process from "@/components/Process";
 
 export default function Home() {
+
+  const navItems = [
+    { name: "About", link: "#about" },
+    { name: "Projects", link: "#projects" },
+    { name: "Skills", link: "#skills" },
+    { name: "Contact", link: "#contact" },
+  ];
+
   return (
     <main className="relative flex justify-center items-center flex-col mx-auto sm:px-10 px-5 overflow-clip">
       <div className="max-w-7xl w-full">

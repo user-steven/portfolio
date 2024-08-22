@@ -7,7 +7,6 @@ import { useState } from "react";
 import animationData from "@/data/confetti.json";
 import { IoCopyOutline } from "react-icons/io5";
 import { MagicButton } from "./MagicButton";
-import { email } from "@/data/index";
 
 export const BentoGrid = ({
   className,
@@ -49,11 +48,23 @@ export const BentoGridItem = ({
   titleClassName?: string;
   spareImg?: string;
 }) => {
-  const [copied, setCopied] = useState(false);
+  let dataEmail = "r2juaw10@duck.com";
+  let dataLeftList = ["1", "2", "3", "4"];
+  let dataRightList = ["1", "2", "3", "4"];
 
+  try {
+    const { email, leftList, rightList } = require('@/config/index');
+    dataEmail = email || dataEmail;
+    dataLeftList = leftList || dataLeftList;
+    dataRightList = rightList || dataRightList;
+  } catch (error) {
+    console.error("Failed to load from index.js");
+  }
+
+  const [copied, setCopied] = useState(false);
   const handleCopy = () => {
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(email);
+      navigator.clipboard.writeText(dataEmail);
       setCopied(true);
     }
   };
@@ -114,7 +125,7 @@ export const BentoGridItem = ({
         {id === 3 && (
           <div className="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-2 text-white">
             <div className="flex flex-col gap-1 lg:gap-3">
-              {["React.js", "Next.js", "TypeScript"].map((item) => (
+              {dataLeftList.map((item) => (
                 <span
                   key={item}
                   className="py-2 lg:py-4 lg:px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
@@ -127,7 +138,7 @@ export const BentoGridItem = ({
 
             <div className="flex flex-col gap-1 lg:gap-3">
               <span className="py-4 px-3 rounded-lg text-center bg-[#10132e]" />
-              {["VueJS", "AWS", "MongoDB"].map((item) => (
+              {dataRightList.map((item) => (
                 <span
                   key={item}
                   className="py-2 lg:py-4 lg:px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
